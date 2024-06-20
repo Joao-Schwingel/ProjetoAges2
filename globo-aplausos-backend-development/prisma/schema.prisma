@@ -1,0 +1,90 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-arm64-openssl-3.0.x", "darwin-arm64", "debian-openssl-1.1.x"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  userId         Int     @id @default(autoincrement())
+  name           String  @db.VarChar(120)
+  email          String  @unique @db.VarChar(120)
+  cpf            String  @unique @db.Char(11)
+  password       String  @db.VarChar(30)
+  profilePicture String?
+
+  userType UserType @default(BASIC)
+
+  walletId Int     @unique
+  wallet   Wallet?
+
+  transactions      Transaction[]
+  sentFeedbacks     Feedback[]    @relation("sender")
+  receivedFeedbacks Feedback[]    @relation("receiver")
+}
+
+enum UserType {
+  ADMIN
+  BASIC
+}
+
+model Wallet {
+  walletId        Int   @id @default(autoincrement())
+  claps           Int   @default(0) @db.UnsignedInt
+  coins           Int   @default(0) @db.UnsignedInt
+  walletLimit     Int   @default(100) @db.UnsignedInt
+  coinsMultiplier Float @default(1.0)
+
+  userId Int  @unique
+  users  User @relation(fields: [userId], references: [userId])
+}
+
+model Feedback {
+  feedbackID Int @id @default(autoincrement())
+
+  senderId Int
+  sender   User @relation(name: "sender", fields: [senderId], references: [userId])
+
+  receiverId Int
+  receiver   User @relation(name: "receiver", fields: [receiverId], references: [userId])
+
+  value      Int      @db.UnsignedInt
+  date       DateTime @default(now())
+  message    String?  @db.VarChar(300)
+  visibility Boolean  @default(false)
+}
+
+model Transaction {
+  transactionId Int      @id @default(autoincrement())
+  price         Int      @db.UnsignedInt
+  datetime      DateTime @default(now())
+
+  userId Int
+  user   User @relation(fields: [userId], references: [userId])
+
+  itemId Int
+  item   Item @relation(fields: [itemId], references: [itemId])
+}
+
+model Item {
+  itemId      Int      @id @default(autoincrement())
+  name        String   @db.VarChar(120)
+  description String   @db.VarChar(1000)
+  price       Int      @db.UnsignedInt
+  image       String?
+  updatedAt   DateTime @updatedAt
+  available   Boolean  @default(true)
+
+  transaction Transaction[]
+}
+
+model Developers {
+  id    Int    @id @default(autoincrement())
+  name  String @db.VarChar(127)
+  url   String @unique @db.VarChar(255)
+  image String @db.VarChar(255)
+  title String @db.VarChar(255)
+}

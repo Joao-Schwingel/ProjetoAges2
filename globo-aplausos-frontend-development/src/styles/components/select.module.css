@@ -1,0 +1,18 @@
+.selectContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.label {
+  color: rgb(var(--color-label-rgb));
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.errorText {
+  color: rgb(var(--color-error-rgb));
+  font-style: italic;
+}

@@ -1,0 +1,35 @@
+.container {
+  gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  padding-bottom: 1.5rem;
+}
+
+.componentLabel {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(var(--color-label-rgb));
+}
+
+.textFieldComponent {
+  position: relative;
+  margin-bottom: 0.5rem;
+  color: rgb(var(--color-label-rgb));
+}
+
+.textFieldComponent input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.textFieldComponent > p {
+  position: absolute;
+  bottom: -1.5rem;
+
+  font-size: 14px;
+  color: rgb(var(--color-error-rgb));
+}

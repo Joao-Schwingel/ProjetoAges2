@@ -1,0 +1,50 @@
+.container {
+  display: grid;
+  justify-content: center;
+  height: 40vw;
+  margin-top: 1rem;
+}
+
+.container .imagesContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContainer {
+  gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.formContainer .inputWrapper {
+  gap: 0.5rem;
+  display: grid;
+}
+
+.errorContainer {
+  text-align: center;
+  font-style: italic;
+  color: rgb(var(--color-error-rgb));
+}
+
+.imageWrapper {
+  width: 28rem;
+  height: 10rem;
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .imageWrapper {
+    width: 20rem;
+    height: 5rem;
+  }
+}
+
+@media (min-width: 1680px) {
+  .imageWrapper {
+    width: 28rem;
+    height: 10rem;
+  }
+}

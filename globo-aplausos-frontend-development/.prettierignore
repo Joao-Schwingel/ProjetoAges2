@@ -1,0 +1,5 @@
+node_modules
+stringTokens.tsx
+# Ignore artifacts:
+build
+coverage

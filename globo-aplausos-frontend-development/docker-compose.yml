@@ -1,0 +1,21 @@
+version: '1'
+
+services:
+  globo_aplausos_frontend:
+    build: .
+    container_name: globo_aplausos_frontend
+    restart: always
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    networks:
+      - globo_aplausos
+    env_file:
+      - .env
+
+networks:
+  globo_aplausos:
+    driver: bridge

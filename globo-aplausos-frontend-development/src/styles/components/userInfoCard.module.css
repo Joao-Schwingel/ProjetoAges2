@@ -1,0 +1,158 @@
+.container {
+  gap: 1.5rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2rem 2rem;
+
+  height: 28rem;
+  width: 15rem;
+
+  background-color: white;
+  border-radius: 1.875rem;
+}
+
+.adminContainer {
+  gap: 2.5rem;
+  justify-content: flex-start;
+}
+
+.image {
+  border-radius: 50%;
+}
+
+.userImageWrapper {
+  height: 10.5rem;
+  width: 10.5rem;
+  position: relative;
+}
+
+.adminImageWrapper {
+  height: 16.5rem;
+  width: 16.5rem;
+}
+
+.textWrapper {
+  gap: 0.5rem;
+  display: grid;
+  text-align: center;
+}
+
+.textWrapper > * {
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.textWrapper .name {
+  margin: 0;
+}
+
+.textWrapper {
+  display: grid;
+  text-align: center;
+  gap: 0.3rem;
+  width: 100%;
+}
+
+.textWrapper > * {
+  text-overflow: clip;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.textWrapper .name {
+  margin: 0;
+
+  font-size: 2.25rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.bottomWrapper {
+  width: 100%;
+
+  gap: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.userCoinBalance {
+  position: relative;
+  left: 55%;
+  transform: translateX(-50%);
+}
+
+.clapsContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tooltip {
+  text-align: center;
+}
+
+.clapImageWrapper {
+  height: 5rem;
+  width: 5rem;
+  position: relative;
+}
+
+.clapCount {
+  font-size: 1.5rem;
+}
+
+.buttonContainer {
+  width: 100%;
+}
+
+.buttonText {
+  animation: fadeOut 0s forwards;
+  order: 2;
+}
+
+.container-animation {
+  object-fit: cover;
+  position: absolute;
+  right: 3rem;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: slide 1s forwards;
+  width: 1rem;
+}
+
+@keyframes slide {
+  from {
+    right: 1rem;
+  }
+  to {
+    right: 50%;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.bottomWrapper {
+  opacity: 0;
+  animation: fadeIN 2s forwards;
+}
+
+@keyframes fadeIN {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

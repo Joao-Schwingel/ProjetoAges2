@@ -1,0 +1,124 @@
+stages:
+  - build
+  - lint
+  - test
+  - publish
+  - stop
+  - deploy
+  - cleanup
+
+build:
+  image: node:alpine
+  tags:
+    - Docker
+  stage: build
+  before_script:
+    - npm install
+  script:
+    - npm run prisma:format
+    - npm run build
+  cache:
+    paths:
+      - node_modules/
+
+lint:
+  image: node:alpine
+  tags:
+    - Docker
+  stage: lint
+  before_script:
+    - npm install
+  script:
+    - npm run lint
+  cache:
+    paths:
+      - node_modules/
+
+test:
+  image: node:alpine
+  tags:
+    - Docker
+  stage: test
+  before_script:
+    - npm install
+  script:
+    - npm run prisma:format
+    - npm run test
+  cache:
+    paths:
+      - node_modules/
+
+publish:
+  stage: publish
+  tags:
+    - Shell
+  before_script:
+    - echo "DATABASE_USER=globo" >.env
+    - echo "DATABASE_PASSWORD=aplausos123" >.env
+    - echo "DATABASE_NAME=globoaplausos" >.env
+    - echo "DATABASE_ROOT_PASSWORD=root" >.env
+    - echo "DATABASE_HOST=mysql" >.env
+    - echo "DATABASE_URL=mysql://globo:aplausos123@mysql:3306/globoaplausos" >.env
+    - echo "ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >.env
+    - echo "SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >.env
+    - echo "BUCKET_NAME=$APP_NAME" >.env
+
+  script:
+    - docker build -t $APP_NAME .
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - docker tag $APP_NAME:latest $DOCKER_REGISTRY/$APP_NAME:latest
+    - docker push $DOCKER_REGISTRY/$APP_NAME:latest
+  only:
+    - main
+
+stop:
+  stage: stop
+  tags:
+    - Shell
+  before_script:
+    - echo "DATABASE_USER=globo" >.env
+    - echo "DATABASE_PASSWORD=aplausos123" >.env
+    - echo "DATABASE_NAME=globoaplausos" >.env
+    - echo "DATABASE_ROOT_PASSWORD=root" >.env
+    - echo "DATABASE_HOST=mysql" >.env
+    - echo "DATABASE_URL=mysql://globo:aplausos123@mysql:3306/globoaplausos" >.env
+    - echo "ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >.env
+    - echo "SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >.env
+    - echo "BUCKET_NAME=$APP_NAME" >.env
+  script:
+    - docker-compose down
+  only:
+    - main
+
+deploy:
+  stage: deploy
+  tags:
+    - Shell
+  cache: []
+  before_script:
+    - npm install
+    - echo "DATABASE_USER=globo" >.env
+    - echo "DATABASE_PASSWORD=aplausos123" >.env
+    - echo "DATABASE_NAME=globoaplausos" >.env
+    - echo "DATABASE_ROOT_PASSWORD=root" >.env
+    - echo "DATABASE_HOST=mysql" >.env
+    - echo "DATABASE_URL=mysql://globo:aplausos123@mysql:3306/globoaplausos" >.env
+    - echo "MYSQL_ROOT_PASSWORD=root"
+    - echo "ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID" >.env
+    - echo "SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY" >.env
+    - echo "BUCKET_NAME=$APP_NAME" >.env
+  script:
+    - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $DOCKER_REGISTRY
+    - docker pull $DOCKER_REGISTRY/$APP_NAME:latest
+    - docker-compose -f docker-compose-prod.yml up -d
+  only:
+    - main
+
+cleanup:
+  stage: cleanup
+  tags:
+    - Shell
+  script:
+    - docker system prune -f
+  only:
+    - main

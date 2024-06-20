@@ -1,0 +1,19 @@
+version: '3.3'
+
+services:
+  globo-aplausos-backend:
+    image: 029236691098.dkr.ecr.us-east-2.amazonaws.com/globo-aplauso:latest
+    container_name: globo-aplausos-backend
+    restart: always
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/app
+    networks:
+      - globo_aplausos
+    env_file:
+      - .env
+      
+networks:
+  globo_aplausos:
+    driver: bridge

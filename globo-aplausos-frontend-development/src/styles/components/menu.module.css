@@ -1,0 +1,21 @@
+.menuItem {
+  color: rgb(var(--color-primary-rgb)) !important;
+  font-size: 16px !important;
+  font-weight: bold !important;
+}
+
+.imageSize {
+  width: 32px !important;
+  height: 32px !important;
+  margin-right: 25px;
+}
+
+.button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  cursor: pointer;
+  height: 2.4rem !important;
+  width: 2.4rem !important;
+  margin-left: 0.5rem;
+}

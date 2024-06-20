@@ -1,0 +1,156 @@
+.empty {
+  background: none;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 32.5rem;
+  height: 40vw;
+  margin-top: 1.75rem;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  border-radius: 1rem;
+  border: none;
+  outline: none;
+
+  background: rgb(var(--background-rgb));
+}
+
+@media (min-width: 750px) {
+  .wrapper {
+    width: 30rem;
+    height: 30rem;
+  }
+  .productImageWrapper {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .wrapper {
+    width: 35rem;
+    height: 40vw;
+  }
+  .productImageWrapper {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@media (min-width: 1440px) {
+  .wrapper {
+    width: 40rem;
+    height: 40vw;
+  }
+  .productImageWrapper {
+    width: 0rem;
+    height: 0rem;
+  }
+}
+
+@media (min-width: 1652px) {
+  .wrapper {
+    width: 40rem;
+    height: 35vw;
+  }
+}
+
+@media (min-width: 2560px) {
+  .wrapper {
+    width: 60rem;
+    height: 60rem;
+  }
+}
+
+.wrapper > img {
+  border-radius: 1rem;
+
+  object-fit: cover;
+}
+
+.contentWrapper {
+  padding: 0 3.5rem 1.5rem 3.5rem;
+}
+
+.contentWrapper > h3 {
+  margin: 1rem 0 0 0;
+
+  text-align: center;
+
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 3.5rem;
+}
+.clapsWrapper {
+  margin-top: 0.5rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.clapsWrapper > span {
+  margin-left: 0.75rem;
+
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 2.5rem;
+}
+
+.contentWrapper > p {
+  margin: 1rem 0 0 0;
+
+  text-align: center;
+
+  font-size: 18px;
+  font-weight: 400;
+
+  color: rgb(var(--text-secondary-rgb));
+}
+
+.buttonWrapper {
+  width: 100%;
+  margin: 2rem 0 0 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.productImageWrapper {
+  width: 100%;
+  height: 40rem;
+  position: relative;
+}
+
+.imageBorder {
+  border-top-right-radius: 1rem;
+  border-top-left-radius: 1rem;
+}
+
+.clapsImageWrapper {
+  --size: 2.5rem;
+  width: var(--size);
+  height: var(--size);
+  position: relative;
+}
